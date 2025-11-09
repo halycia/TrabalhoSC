@@ -29,8 +29,8 @@ int main() {
             cout << "\nChaves geradas automaticamente!\n";
             cout << "p=" << rsa.p << " q=" << rsa.q << " n=" << rsa.n << " phi=" << rsa.phi << "\n";
             cout << "e=" << rsa.e << " d=" << rsa.d << "\n";
-            write_file("chaves.txt", to_string(rsa.e) + " " + to_string(rsa.d) + " " + to_string(rsa.n));
-            cout << "Chaves salvas em 'chaves.txt'.\n";
+            write_file("./output/chaves.txt", to_string(rsa.e) + " " + to_string(rsa.d) + " " + to_string(rsa.n));
+            cout << "Chaves salvas em './output/chaves.txt'.\n";
         }
 
         else if (op == 2) {
@@ -78,8 +78,8 @@ int main() {
             u64 assinatura = rsa.sign(h);
             cout << "Hash simplificado: " << h << "\n";
             cout << "Assinatura: " << assinatura << "\n";
-            write_file("assinatura.txt", to_string(assinatura));
-            cout << "Assinatura salva em 'assinatura.txt'.\n";
+            write_file("./output/assinatura.txt", to_string(assinatura));
+            cout << "Assinatura salva em './output/assinatura.txt'.\n";
         }
 
         else if (op == 4) {
