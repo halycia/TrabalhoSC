@@ -37,7 +37,6 @@ $(OUTDIR)\$(OUT): $(SRC) $(HEADERS)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUTDIR)\$(OUT)
 	@echo.
 	@echo Compilação concluída com sucesso!
-	@echo Executável gerado em: $(OUTDIR)\$(OUT)
 	@echo.
 
 # Executa o programa (com terminal UTF-8)
