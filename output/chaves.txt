@@ -1,0 +1,8 @@
+31 17071 29747
+
+p=89 q=239 n=21271 phi=20944
+e=31 d=8783
+
+Chave pública: (e=31, n=21271)
+Chave privada: (d=8783, n=21271)
+Chaves salvas em 'chaves.txt'.

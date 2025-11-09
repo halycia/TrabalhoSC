@@ -1,0 +1,56 @@
+ctrl + shift + v abre o readME preview.
+
+# Assinador Digital
+
+O presente projeto foi desenvolvido para a disciplina de Segurança Computacional na Universidade de Brasília.
+
+Os algoritmos utilizados serão versões simplificadas de RSA e SHA.
+
+# Instalação e Preparação do Ambiente
+
+Será utilizado o editor de código VSCode. Dentro dele, é necessário instalar as extensões C/C++ Extension Pack (publicada pela Microsoft) e C/C++ Compile Run (publicada por danielpinto8zz6).
+
+Também será utilizado o MinGW (https://sourceforge.net/projects/mingw/ ), no caso da utilização do Windows.
+
+Para compilação e geração do executável do arquivo, será utilizado o atalho F6. Então, basta abrir um terminal e rodar o executável como "[nome do executavel].exe".
+
+
+# Assinador Digital Simplificado (RSA + SHA)
+
+Este programa implementa uma versão **simplificada do sistema RSA** e de uma **função hash (SHA-like)** para simular o processo de **assinatura e verificação digital** de mensagens.
+
+A implementação foi feita **inteiramente do zero**, sem uso de bibliotecas externas de criptografia, conforme as exigências do trabalho.  
+Todos os cálculos de módulo, potência e inverso multiplicativo utilizam o **algoritmo de Euclides estendido**.
+
+O sistema permite:
+
+- Gerar pares de chaves RSA (manualmente ou automaticamente);
+- Assinar mensagens digitadas ou armazenadas em arquivos `.txt`;
+- Verificar a validade de assinaturas;
+- Salvar e reutilizar chaves e assinaturas.
+
+## Requisitos
+
+- Sistema operacional: Windows
+- Compilador: MinGW
+- Extensão C/C++ configurada no **VSCode**
+
+
+## Arquivos do projeto
+
+| Arquivo | Descrição |
+|-||
+| `main.cpp` | Código-fonte principal do programa |
+| `chaves.txt` | Armazena os valores `e`, `d` e `n` das chaves geradas |
+| `assinatura.txt` | Armazena o valor da assinatura digital |
+| `mensagem.txt` | (Opcional) Texto a ser assinado ou verificado |
+| `README.md` | Instruções de compilação e execução |
+
+
+
+## 🛠️ Como compilar
+
+Abra o terminal do VSCode na pasta do projeto e execute o comando:
+
+```bash
+C:\MinGW\bin\g++.exe -Wall -Wextra -g3 main.cpp -o main.exe
