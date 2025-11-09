@@ -1,56 +1,72 @@
-ctrl + shift + v abre o readME preview.
+# Assinador Digital (RSA + SHA)
 
-# Assinador Digital
+O presente projeto foi desenvolvido para a disciplina de Segurança Computacional na Universidade de Brasília. Este programa implementa uma versão simplificada do sistema RSA e de uma função hash (SHA-like) para simular o processo de assinatura e verificação digital de mensagens.
 
-O presente projeto foi desenvolvido para a disciplina de Segurança Computacional na Universidade de Brasília.
-
-Os algoritmos utilizados serão versões simplificadas de RSA e SHA.
-
-# Instalação e Preparação do Ambiente
-
-Será utilizado o editor de código VSCode. Dentro dele, é necessário instalar as extensões C/C++ Extension Pack (publicada pela Microsoft) e C/C++ Compile Run (publicada por danielpinto8zz6).
-
-Também será utilizado o MinGW (https://sourceforge.net/projects/mingw/ ), no caso da utilização do Windows.
-
-Para compilação e geração do executável do arquivo, será utilizado o atalho F6. Então, basta abrir um terminal e rodar o executável como "[nome do executavel].exe".
-
-
-# Assinador Digital Simplificado (RSA + SHA)
-
-Este programa implementa uma versão **simplificada do sistema RSA** e de uma **função hash (SHA-like)** para simular o processo de **assinatura e verificação digital** de mensagens.
-
-A implementação foi feita **inteiramente do zero**, sem uso de bibliotecas externas de criptografia, conforme as exigências do trabalho.  
-Todos os cálculos de módulo, potência e inverso multiplicativo utilizam o **algoritmo de Euclides estendido**.
+A implementação foi feita sem uso de bibliotecas externas de criptografia, conforme as exigências do trabalho.  
+Todos os cálculos de módulo, potência e inverso multiplicativo utilizam o algoritmo de Euclides estendido.
 
 O sistema permite:
 
 - Gerar pares de chaves RSA (manualmente ou automaticamente);
-- Assinar mensagens digitadas ou armazenadas em arquivos `.txt`;
+- Assinar mensagens digitadas ou armazenadas em arquivos .txt;
 - Verificar a validade de assinaturas;
 - Salvar e reutilizar chaves e assinaturas.
 
 ## Requisitos
 
 - Sistema operacional: Windows
-- Compilador: MinGW
-- Extensão C/C++ configurada no **VSCode**
-
+- Compilador: MinGW (https://sourceforge.net/projects/mingw/)
+- Editor de código: VSCode
+- extensões no VSCode: C/C++ Extension Pack (publicada pela Microsoft) e C/C++ Compile Run (publicada por danielpinto8zz6)
 
 ## Arquivos do projeto
 
-| Arquivo | Descrição |
-|-||
 | `main.cpp` | Código-fonte principal do programa |
-| `chaves.txt` | Armazena os valores `e`, `d` e `n` das chaves geradas |
-| `assinatura.txt` | Armazena o valor da assinatura digital |
-| `mensagem.txt` | (Opcional) Texto a ser assinado ou verificado |
-| `README.md` | Instruções de compilação e execução |
+
+| `README.md` | Instruções de compilação e execução do programa |
+
+| `chaves.txt` | Armazena os valores `e`, `d` e `n` das chaves RSA geradas. |
+
+| `assinatura.txt` | Armazena o valor da assinatura digital gerada a partir do hash da mensagem. |
+
+| `Makefile` | Automatiza a compilação, execução, limpeza e exibição de ajuda do projeto |
+
+---
+
+| `main.cpp` | Código-fonte principal do programa. Implementa o menu interativo e controla as ações de geração de chaves, assinatura e verificação. |
+
+| `rsa.cpp` / `rsa.hpp` | Implementa a estrutura e o comportamento do algoritmo **RSA**. Possui as funções `init(p, q, e)`, `generate_auto()`, `sign(hash)` e `verify(hash, assinatura)`, além dos atributos `p`, `q`, `n`, `phi`, `e` e `d`. |
+
+| `math_utils.cpp` / `math_utils.hpp` | Contém as funções matemáticas fundamentais para o funcionamento do RSA: `gcd(a, b)` (máximo divisor comum), `modinv(a, m)` (inverso multiplicativo modular) e `pow_mod(base, exp, mod)` (exponenciação modular rápida). |
+
+| `file_utils.cpp` / `file_utils.hpp` | Gerencia a leitura e gravação de arquivos `.txt`. Fornece `read_file(path, content)` e `write_file(path, content)` para salvar e recuperar chaves e assinaturas. |
+
+| `hash_utils.cpp` / `hash_utils.hpp` | Implementa uma função hash simplificada (`simple_hash(msg)`), inspirada no DJB2, que gera um valor numérico a partir da mensagem — usado como entrada para a assinatura digital. |
 
 
-
-## 🛠️ Como compilar
+## Instruções de compilação e execução do programa
 
 Abra o terminal do VSCode na pasta do projeto e execute o comando:
 
 ```bash
-C:\MinGW\bin\g++.exe -Wall -Wextra -g3 main.cpp -o main.exe
+Set-Alias make mingw32-make.exe
+```
+### Compilar o programa
+```bash
+make all
+```
+
+### Executar o programa
+```bash
+make run
+```
+
+### Limpar arquivos gerados
+```bash
+make clean
+```
+
+### Exibir ajuda
+```bash
+make help
+```
