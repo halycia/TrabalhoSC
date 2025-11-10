@@ -33,3 +33,8 @@ u64 RSA::sign(u64 hash_value) const {
 bool RSA::verify(u64 hash_value, u64 signature) const {
     return pow_mod(signature, e, n) == (hash_value % n);
 }
+
+u64 RSA::decrypt_with_public(u64 signature) const {
+    // Descriptografa a assinatura usando a chave pública e
+    return pow_mod(signature, e, n);
+}

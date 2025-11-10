@@ -8,4 +8,5 @@ struct RSA {
     void generate_auto();
     u64 sign(u64 hash_value) const;
     bool verify(u64 hash_value, u64 signature) const;
+    u64 decrypt_with_public(u64 signature) const;
 };

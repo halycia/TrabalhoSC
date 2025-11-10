@@ -48,8 +48,8 @@ int main() {
             hasKeys = true;
             cout << "\nChave pública: (e=" << rsa.e << ", n=" << rsa.n << ")\n";
             cout << "Chave privada: (d=" << rsa.d << ", n=" << rsa.n << ")\n";
-            write_file("chaves.txt", to_string(rsa.e) + " " + to_string(rsa.d) + " " + to_string(rsa.n));
-            cout << "Chaves salvas em 'chaves.txt'.\n";
+            write_file("./output/chaves.txt", to_string(rsa.e) + " " + to_string(rsa.d) + " " + to_string(rsa.n));
+            cout << "Chaves salvas em './output/chaves.txt'.\n";
         }
 
         else if (op == 3) {
@@ -74,8 +74,9 @@ int main() {
                     continue;
                 }
             }
-            u64 h = simple_hash(msg);
+            u64 h = simple_hash(msg) % rsa.n; 
             u64 assinatura = rsa.sign(h);
+            cout << "Mensagem original: " << msg << "\n";
             cout << "Hash simplificado: " << h << "\n";
             cout << "Assinatura: " << assinatura << "\n";
             write_file("./output/assinatura.txt", to_string(assinatura));
@@ -83,10 +84,6 @@ int main() {
         }
 
         else if (op == 4) {
-            if (!hasKeys) {
-                cout << "Gere ou informe as chaves primeiro.\n";
-                continue;
-            }
             cout << "1. Verificar texto digitado\n2. Verificar arquivo .txt\nEscolha: ";
             int modo;
             cin >> modo;
@@ -104,19 +101,37 @@ int main() {
                     continue;
                 }
             }
-            string sigStr;
-            if (!read_file("assinatura.txt", sigStr)) {
-                cout << "Não foi possível ler 'assinatura.txt'.\n";
-                continue;
-            }
-            u64 assinatura = stoull(sigStr);
-            u64 h = simple_hash(msg);
-            bool ok = rsa.verify(h, assinatura);
-            cout << (ok ? "Assinatura válida\n" : "Assinatura inválida\n");
-        }
 
-        else {
-            cout << "Opção inválida.\n";
+            string sigStr;
+            cout << "Informe o resumo criptografado (assinatura) ou caminho do arquivo de assinatura: ";
+            string sigInput;
+            getline(cin, sigInput);
+
+            u64 assinatura;
+            if (sigInput.size() > 4 && sigInput.substr(sigInput.size()-4) == ".txt") {
+                if (!read_file(sigInput, sigStr)) {
+                    cout << "Não foi possível ler '" << sigInput << "'.\n";
+                    continue;
+                }
+                assinatura = stoull(sigStr);
+            } else {
+                assinatura = stoull(sigInput);
+            }
+
+            u64 hash_recalculado = simple_hash(msg) % rsa.n; 
+            u64 resumo_descriptografado = rsa.decrypt_with_public(assinatura);
+
+            cout << "\n--- Verificação da assinatura ---\n";
+            cout << "Mensagem recebida: " << msg << "\n";
+            cout << "Hash recalculado da mensagem: " << hash_recalculado << "\n";
+            cout << "Assinatura recebida: " << assinatura << "\n";
+            cout << "Resumo descriptografado (assinatura com chave pública): " << resumo_descriptografado << "\n";
+
+            if (hash_recalculado == resumo_descriptografado) {
+                cout << "Resultado: Assinatura válida! Mensagem não foi alterada e pertence ao emissor.\n";
+            } else {
+                cout << "Resultado: Assinatura inválida! Mensagem pode ter sido alterada ou não pertence ao emissor.\n";
+            }
         }
     }
 
