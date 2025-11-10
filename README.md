@@ -21,7 +21,7 @@ O sistema permite:
 
 ## Arquivos do projeto
 
-| `main.cpp` | Código-fonte principal do programa |
+| `main.cpp` | Código-fonte principal do programa. Implementa o menu interativo e controla as ações de geração de chaves, assinatura e verificação. |
 
 | `README.md` | Instruções de compilação e execução do programa |
 
@@ -31,13 +31,9 @@ O sistema permite:
 
 | `Makefile` | Automatiza a compilação, execução, limpeza e exibição de ajuda do projeto |
 
----
+| `rsa.cpp` / `rsa.hpp` | Implementa a estrutura e o comportamento do algoritmo **RSA**. |
 
-| `main.cpp` | Código-fonte principal do programa. Implementa o menu interativo e controla as ações de geração de chaves, assinatura e verificação. |
-
-| `rsa.cpp` / `rsa.hpp` | Implementa a estrutura e o comportamento do algoritmo **RSA**. Possui as funções `init(p, q, e)`, `generate_auto()`, `sign(hash)` e `verify(hash, assinatura)`, além dos atributos `p`, `q`, `n`, `phi`, `e` e `d`. |
-
-| `math_utils.cpp` / `math_utils.hpp` | Contém as funções matemáticas fundamentais para o funcionamento do RSA: `gcd(a, b)` (máximo divisor comum), `modinv(a, m)` (inverso multiplicativo modular) e `pow_mod(base, exp, mod)` (exponenciação modular rápida). |
+| `math_utils.cpp` / `math_utils.hpp` | Contém as funções matemáticas para o funcionamento do RSA. |
 
 | `file_utils.cpp` / `file_utils.hpp` | Gerencia a leitura e gravação de arquivos `.txt`. Fornece `read_file(path, content)` e `write_file(path, content)` para salvar e recuperar chaves e assinaturas. |
 

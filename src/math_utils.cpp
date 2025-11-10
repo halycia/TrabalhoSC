@@ -2,7 +2,7 @@ using namespace std;
 using u64 = unsigned long long;
 #include <bits/stdc++.h>
 
-// ---------- Função gcd manual ----------
+// mdc
 long long gcd_manual(long long a, long long b) {
     while (b != 0) {
         long long t = b;
@@ -12,7 +12,6 @@ long long gcd_manual(long long a, long long b) {
     return a;
 }
 
-// ---------- Multiplicação modular segura ----------
 u64 mul_mod(u64 a, u64 b, u64 mod) {
     u64 res = 0;
     a %= mod;
@@ -37,7 +36,7 @@ u64 pow_mod(u64 base, u64 exp, u64 mod) {
     return res;
 }
 
-// ---------- Algoritmo de Euclides Estendido ----------
+// algoritmo de Euclides estendido
 long long egcd(long long a, long long b, long long &x, long long &y) {
     if (b == 0) {
         x = 1;
@@ -51,6 +50,7 @@ long long egcd(long long a, long long b, long long &x, long long &y) {
     return g;
 }
 
+// inverso multiplicativo modular
 long long modinv(long long a, long long m) {
     long long x, y;
     long long g = egcd(a, m, x, y);
@@ -60,7 +60,6 @@ long long modinv(long long a, long long m) {
     return x;
 }
 
-// ---------- Checagem simples de primalidade ----------
 bool is_prime(u64 n) {
     if (n < 2) return false;
     if (n % 2 == 0) return n == 2;
@@ -70,11 +69,11 @@ bool is_prime(u64 n) {
     return true;
 }
 
-// ---------- Gera um primo pequeno aleatório ----------
+// gera um primo entre 50 e 249 aleatoriamente 
 u64 random_prime() {
     static mt19937_64 rng(time(nullptr));
     while (true) {
-        u64 x = rng() % 200 + 50; // entre 50 e 249
+        u64 x = rng() % 200 + 50;
         if (is_prime(x)) return x;
     }
 }
